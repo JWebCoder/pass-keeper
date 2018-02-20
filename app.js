@@ -9,6 +9,9 @@ import bodyParser from 'body-parser'
 import index from 'routes/index'
 import users from 'routes/users'
 
+// database
+import db from 'db'
+
 class App {
   constructor() {
     this.server = express()

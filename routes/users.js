@@ -1,10 +1,11 @@
 import { Router } from 'express'
+import userController from 'controllers/user'
 
 const router = Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.put('/', function(req, res) {
+  userController.createUser(req, res)
 })
 
 export default router
