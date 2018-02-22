@@ -1,13 +1,11 @@
-import userModel from 'db/models/user'
+import { userModel, bookModel } from 'db/models'
 
 class UserController {
-  constructor(userModel) {
-    this.userModel = userModel
+  constructor() {
   }
 
   createUser(req, res) {
-    console.log(req.body)
-    this.userModel.create(
+    userModel.create(
       {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -19,8 +17,17 @@ class UserController {
       }
     )
   }
+
+  getAll(req, res) {
+    console.log(userModel)
+    userModel.all({ include: [ bookModel ] }).then(
+      users => {
+        res.json(users)
+      }
+    )
+  }
 }
 
-const userController = new UserController(userModel)
+const userController = new UserController()
 
 export default userController

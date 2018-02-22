@@ -1,4 +1,21 @@
-import db from 'db/db'
-import models from 'db/models'
+import { initModels } from 'db/models'
 
-export default db
+const Sequelize = require('sequelize')
+
+let sequelize
+
+export { sequelize }
+
+export function initDB() {
+  sequelize = new Sequelize(
+    'fightingFantasy',
+    'root',
+    'caralhao',
+    {
+      host: 'localhost',
+      dialect: 'mysql',
+    }
+  )
+
+  initModels()
+}

@@ -10,10 +10,11 @@ import index from 'routes/index'
 import users from 'routes/users'
 
 // database
-import db from 'db'
+import { initDB } from 'db'
 
 class App {
   constructor() {
+    initDB()
     this.server = express()
 
     // view engine setup
@@ -55,6 +56,4 @@ class App {
   }
 }
 
-const app = new App()
-
-export default app
+export default App
