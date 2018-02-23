@@ -8,6 +8,7 @@ export default function() {
     firstName: 'John',
     lastName: 'Hancock',
     email: 'john.hancock@gmail.com',
+    password: 'password'
   }).then(
     user => {
       bookModel.create({

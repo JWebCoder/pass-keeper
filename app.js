@@ -4,6 +4,10 @@ import favicon from 'serve-favicon'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
+import session from 'express-session'
+
+// passport
+import { initStrategies } from 'passportStrategies'
 
 // routes
 import index from 'routes/index'
@@ -26,11 +30,18 @@ class App {
     this.server.use(logger('dev'))
     this.server.use(bodyParser.json())
     this.server.use(bodyParser.urlencoded({ extended: false }))
+    this.server.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
     this.server.use(cookieParser())
     this.server.use(express.static(path.join(__dirname, 'public')))
 
-    this.server.use('/', index)
-    this.server.use('/users', users)
+    // Initialize Passport and restore authentication state, if any, from the
+    // session.
+    const passport = initStrategies()
+    this.server.use(passport.initialize())
+    this.server.use(passport.session())
+
+    this.server.use('/', index())
+    this.server.use('/users', users())
 
     // catch 404 and forward to error handler
     this.server.use(

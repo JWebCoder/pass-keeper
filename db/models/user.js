@@ -22,6 +22,10 @@ export function initUserModel() {
           notEmpty: true,
         },
       },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      }
     },
     {
       indexes: [
