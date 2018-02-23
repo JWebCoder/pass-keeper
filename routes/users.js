@@ -10,9 +10,20 @@ export default function () {
   })
 
   /* Lists all users. */
-  router.get('/', function(req, res) {
-    userController.getAll(req, res)
-  })
+  router.get('/',
+    ensureLoggedIn(),
+    (req, res) => {
+      userController.getAll(req, res)
+    }
+  )
+
+  /* Retreive all the logged in user data. */
+  router.get('/me',
+    ensureLoggedIn(),
+    (req, res) => {
+      userController.getProfile(req, res)
+    }
+  )
 
   return router
 }

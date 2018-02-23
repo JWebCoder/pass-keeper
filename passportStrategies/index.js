@@ -47,7 +47,6 @@ export function initStrategies() {
   // deserializing.
   passport.serializeUser(
     (user, cb) => {
-      console.log('serial', user.id)
       cb(null, user.id)
     }
   )

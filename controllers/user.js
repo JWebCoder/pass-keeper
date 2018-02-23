@@ -18,8 +18,22 @@ class UserController {
     )
   }
 
+  getProfile(req, res) {
+    userModel.findOne(
+      {
+        where: {
+          id: req.user.id
+        },
+        include: [ bookModel ]
+      }
+    ).then(
+      user => {
+        res.json(user)
+      }
+    )
+  }
+
   getAll(req, res) {
-    console.log(userModel)
     userModel.all({ include: [ bookModel ] }).then(
       users => {
         res.json(users)

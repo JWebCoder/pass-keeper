@@ -30,12 +30,5 @@ export default function () {
     }
   )
 
-  router.get('/profile',
-    ensureLoggedIn(),
-    (req, res) => {
-      res.json({user: req.user})
-    }
-  )
-
   return router
 };
