@@ -12,6 +12,7 @@ import { initStrategies } from 'passportStrategies'
 // routes
 import index from 'routes/index'
 import users from 'routes/users'
+import books from 'routes/books'
 
 // database
 import { initDB } from 'db'
@@ -42,11 +43,12 @@ class App {
 
     this.server.use('/', index())
     this.server.use('/users', users())
+    this.server.use('/books', books())
 
     // catch 404 and forward to error handler
     this.server.use(
       (req, res, next) => {
-        var err = new Error('Not Found')
+        const err = new Error('Not Found')
         err.status = 404
         next(err)
       }
@@ -55,13 +57,12 @@ class App {
     // error handler
     this.server.use(
       (err, req, res, next) => {
-        // set locals, only providing error in development
-        res.locals.message = err.message;
-        res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-        // render the error page
+        console.log(err)
         res.status(err.status || 500)
-        res.render('error')
+        res.json({
+          status: err.status,
+          message: err.message,
+        })
       }
     )
   }

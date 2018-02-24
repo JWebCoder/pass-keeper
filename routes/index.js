@@ -1,6 +1,6 @@
-import { strategies } from 'passportStrategies'
 import { Router } from 'express'
-import { ensureLoggedIn } from 'connect-ensure-login'
+import { auth, logout } from 'middleware/auth'
+import { sendJson } from 'middleware/response'
 
 const router = Router();
 
@@ -17,17 +17,13 @@ export default function () {
   )
 
   router.post('/login',
-    strategies.authenticate('local', { failureRedirect: '/login' }),
-    (req, res) => {
-      res.json({user: req.user})
-    }
+    auth('local'),
+    sendJson
   )
 
   router.get('/logout',
-    (req, res) => {
-      req.logout()
-      res.redirect('/')
-    }
+    logout,
+    sendJson
   )
 
   return router

@@ -1,19 +1,21 @@
-import { userModel, bookModel } from 'db/models'
+import { bookModel } from 'db/models'
 
-class UserController {
+class BookController {
   constructor() {
   }
 
-  getAll(req, res) {
-    console.log(userModel)
-    userModel.all({ include: [ bookModel ] }).then(
-      users => {
-        res.json(users)
+  getAll(req, res, next) {
+    bookModel.all({
+      attributes: ['id', 'title'],
+    }).then(
+      books => {
+        res.data = books
+        next()
       }
     )
   }
 }
 
-const userController = new UserController()
+const bookController = new BookController()
 
-export default userController
+export default bookController

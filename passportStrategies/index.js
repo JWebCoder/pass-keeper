@@ -2,8 +2,6 @@ import passport from 'passport'
 import { Strategy as LocalStrategy } from "passport-local";
 import { userModel } from 'db/models'
 
-let strategies = null
-
 export function initStrategies() {
   console.log('starting login strategies')
   passport.use(new LocalStrategy(
@@ -65,9 +63,5 @@ export function initStrategies() {
     }
   )
 
-  strategies = passport
-
   return passport
 }
-
-export { strategies }

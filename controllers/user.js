@@ -4,7 +4,7 @@ class UserController {
   constructor() {
   }
 
-  createUser(req, res) {
+  createUser(req, res, next) {
     userModel.create(
       {
         firstName: req.body.firstName,
@@ -13,30 +13,45 @@ class UserController {
       }
     ).then(
       user => {
-        res.json(user);
+        res.data = user
+        next()
       }
     )
   }
 
-  getProfile(req, res) {
+  getProfile(req, res, next) {
     userModel.findOne(
       {
         where: {
           id: req.user.id
         },
-        include: [ bookModel ]
+        attributes: [
+          'id',
+          'firstName',
+          'lastName',
+          'email',
+          'password',
+        ],
+        include: [{
+          model: bookModel,
+          attributes: ['id', 'title'],
+          through: {
+            attributes: [],
+          },
+        }],
       }
     ).then(
       user => {
-        res.json(user)
+        res.data = user
+        next()
       }
     )
   }
 
-  getAll(req, res) {
+  getAll(req, res, next) {
     userModel.all({ include: [ bookModel ] }).then(
       users => {
-        res.json(users)
+        res.data = users
       }
     )
   }
