@@ -1,6 +1,9 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from "passport-local";
 import { userModel } from 'db/models'
+import bcrypt from 'bcrypt'
+
+const saltRounds = 10;
 
 export function initStrategies() {
   console.log('starting login strategies')
@@ -14,17 +17,25 @@ export function initStrategies() {
         {
           where: {
             email
-          }
+          },
+          attributes: [
+            'id',
+            'firstName',
+            'lastName',
+            'email',
+            'password',
+          ],
         }
       ).then(
         user => {
           if (!user) {
             return cb(null, false)
           }
-          if (user.password !== password) {
+          if (!bcrypt.compareSync(password, user.password)) {
             return cb(null, false)
           }
-          console.log('user found')
+          console.log(`user found: ${user.email}`)
+          delete user.dataValues.password
           return cb(null, user)
         }
       ).catch(
@@ -35,14 +46,6 @@ export function initStrategies() {
     }
   ))
 
-
-  // Configure Passport authenticated session persistence.
-  //
-  // In order to restore authentication state across HTTP requests, Passport needs
-  // to serialize users into and deserialize users out of the session.  The
-  // typical implementation of this is as simple as supplying the user ID when
-  // serializing, and querying the user record by ID from the database when
-  // deserializing.
   passport.serializeUser(
     (user, cb) => {
       cb(null, user.id)
@@ -51,8 +54,19 @@ export function initStrategies() {
 
   passport.deserializeUser(
     (id, cb) => {
-      userModel.findById(id).then(
+      userModel.findById(
+        id,
+        {
+          attributes: [
+            'id',
+            'firstName',
+            'lastName',
+            'email',
+          ],
+        }
+      ).then(
         user => {
+          console.log(user)
           cb(null, user)
         }
       ).catch(

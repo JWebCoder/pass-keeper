@@ -30,7 +30,6 @@ class UserController {
           'firstName',
           'lastName',
           'email',
-          'password',
         ],
         include: [{
           model: bookModel,

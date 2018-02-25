@@ -1,7 +1,9 @@
 import { sequelize } from 'db'
 import Sequelize from 'sequelize'
 import { bookModel } from 'db/models/book'
+import bcrypt from 'bcrypt'
 
+const saltRounds = 10;
 let userModel = null
 
 export function initUserModel() {
@@ -34,7 +36,12 @@ export function initUserModel() {
           unique: true,
           fields: ['email']
         }
-      ]
+      ],
+      hooks: {
+        beforeCreate: (user, options) => {
+          user.password = bcrypt.hashSync(user.password, saltRounds)
+        },
+      },
     }
   )
 }
