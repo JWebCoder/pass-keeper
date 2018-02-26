@@ -11,21 +11,21 @@ export default function () {
   /* Create a new user. */
   router.put('/',
     userController.createUser,
-    sendJson
+    sendJson()
   )
 
   /* Lists all users. */
   router.get('/',
     isAuth(),
     userController.getAll,
-    sendJson
+    sendJson()
   )
 
   /* Retreive all the logged in user data. */
   router.get('/me',
     isAuth(),
     userController.getProfile,
-    sendJson
+    sendJson('user')
   )
 
   return router

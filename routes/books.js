@@ -12,7 +12,7 @@ export default function () {
   router.get('/',
     isAuth(),
     bookController.getAll,
-    sendJson
+    sendJson('books')
   )
 
   return router

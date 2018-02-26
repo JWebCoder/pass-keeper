@@ -5,25 +5,29 @@ import { sendJson } from 'middleware/response'
 const router = Router();
 
 export default function () {
-  /* GET home page. */
+
+  // GET renders home page
   router.get('/', function(req, res) {
     res.render('index', { title: 'Express' });
   });
 
+  // GET renders login page
   router.get('/login',
     (req, res) => {
       res.render('login');
     }
   )
 
+  // POST creates a loggin session for a user
   router.post('/login',
     auth('local'),
-    sendJson
+    sendJson('user')
   )
 
+    // GET logs out a user
   router.get('/logout',
     logout,
-    sendJson
+    sendJson()
   )
 
   return router
