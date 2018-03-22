@@ -1,17 +1,17 @@
 import { Router } from 'express'
-import bookController from 'controllers/book'
+import passwordController from 'controllers/password'
 
 // middleware
 import { isAuth } from 'middleware/auth'
 import { sendJson } from 'middleware/response'
 
-const router = Router();
+const router = Router()
 
-export default function () {
+export default function() {
   /* Lists all books. */
   router.get('/',
     isAuth(),
-    bookController.getAll,
+    passwordController.getAll,
     sendJson('books')
   )
 

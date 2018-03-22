@@ -14,16 +14,16 @@ import { sequelize } from 'db'
 import boot from 'boot'
 
 dotenv.config()
-const debug = Debug('fighting-fantasy-server:server')
+const debug = Debug('pass-keeper:server')
 
 let params = {
-    SERVER_PORT: process.env.SERVER_PORT,
-    NOVE_ENV: process.env.NODE_ENV,
-  }
+  SERVER_PORT: process.env.SERVER_PORT,
+  NOVE_ENV: process.env.NODE_ENV,
+}
 
-  console.log('---------------------------------------------')
-  console.log('INIT PARAMETERS:\n', params)
-  console.log('---------------------------------------------')
+console.log('---------------------------------------------')
+console.log('INIT PARAMETERS:\n', params)
+console.log('---------------------------------------------')
 
 /**
  * Get port from environment and store in Express.
@@ -46,7 +46,7 @@ const server = http.createServer(app.server)
 
 sequelize.sync({force: process.env.NODE_END === 'development'}).then(
   () => {
-  server.listen(port)
+    server.listen(port)
   }
 )
 
@@ -91,11 +91,9 @@ function onError(error) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges')
       process.exit(1)
-      break
     case 'EADDRINUSE':
       console.error(bind + ' is already in use')
       process.exit(1)
-      break
     default:
       throw error
   }

@@ -1,6 +1,6 @@
 import { sequelize } from 'db'
 import Sequelize from 'sequelize'
-import { bookModel } from 'db/models/book'
+import { passwordModel } from 'db/models/password'
 import bcrypt from 'bcrypt'
 
 const saltRounds = 10;
@@ -47,7 +47,7 @@ export function initUserModel() {
 }
 
 export function createUserRelations() {
-  userModel.belongsToMany(bookModel, { through: 'usersBooks' })
+  userModel.hasMany(passwordModel)
 }
 
 export { userModel }

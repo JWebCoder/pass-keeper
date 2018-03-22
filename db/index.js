@@ -8,9 +8,9 @@ export { sequelize }
 
 export function initDB() {
   sequelize = new Sequelize(
-    'fightingFantasy',
+    'pass_keep',
     'root',
-    'caralhao',
+    'admysql@2014',
     {
       host: 'localhost',
       dialect: 'mysql',

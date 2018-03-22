@@ -2,13 +2,12 @@ import passport from 'passport'
 
 // makes sure that the user is logged in
 function ensureLoggedIn(options) {
-  if (typeof options == 'string') {
+  if (typeof options === 'string') {
     options = { redirectTo: options }
   }
-  options = options || {};
+  options = options || {}
 
-  var url = options.redirectTo || '/login';
-  var setReturnTo = (options.setReturnTo === undefined) ? true : options.setReturnTo;
+  var setReturnTo = (options.setReturnTo === undefined) ? true : options.setReturnTo
 
   return function(req, res, next) {
     if (!req.isAuthenticated || !req.isAuthenticated()) {
@@ -18,7 +17,6 @@ function ensureLoggedIn(options) {
       const err = new Error('Authentication required')
       err.status = 403
       return next(err)
-
     } else {
       next()
     }
@@ -35,7 +33,7 @@ const login = (req, res, next, user) => {
       }
       res.data = {
         ...res.data,
-        user
+        user,
       }
       next()
     }

@@ -1,6 +1,6 @@
 import express from 'express'
 import path from 'path'
-import favicon from 'serve-favicon'
+// import favicon from 'serve-favicon'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
@@ -12,7 +12,7 @@ import { initStrategies } from 'passportStrategies'
 // routes
 import index from 'routes/index'
 import users from 'routes/users'
-import books from 'routes/books'
+import passwords from 'routes/passwords'
 
 // database
 import { initDB } from 'db'
@@ -27,7 +27,7 @@ class App {
     this.server.set('view engine', 'jade')
 
     // uncomment after placing your favicon in /public
-    //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+    // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
     this.server.use(logger('dev'))
     this.server.use(bodyParser.json())
     this.server.use(bodyParser.urlencoded({ extended: false }))
@@ -43,16 +43,17 @@ class App {
 
     this.server.use('/', index())
     this.server.use('/users', users())
-    this.server.use('/books', books())
+    this.server.use('/passwords', passwords())
 
     // catch 404 and forward to error handler
     this.server.use(
       (req, res, next) => {
+        console.log('wtf')
         const err = new Error('Not Found')
         err.status = 404
         next(err)
       }
-    );
+    )
 
     // error handler
     this.server.use(

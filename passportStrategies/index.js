@@ -1,22 +1,20 @@
 import passport from 'passport'
-import { Strategy as LocalStrategy } from "passport-local";
+import { Strategy as LocalStrategy } from 'passport-local'
 import { userModel } from 'db/models'
 import bcrypt from 'bcrypt'
-
-const saltRounds = 10;
 
 export function initStrategies() {
   console.log('starting login strategies')
   passport.use(new LocalStrategy(
     {
       usernameField: 'email',
-      passwordField: 'password'
+      passwordField: 'password',
     },
     (email, password, cb) => {
       return userModel.findOne(
         {
           where: {
-            email
+            email,
           },
           attributes: [
             'id',

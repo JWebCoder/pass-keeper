@@ -1,4 +1,4 @@
-import { userModel, bookModel } from 'db/models'
+import { userModel, passwordModel } from 'db/models'
 
 /* boot script for development
 ** create a user
@@ -9,15 +9,16 @@ export default function() {
   userModel.create({
     firstName: 'John',
     lastName: 'Hancock',
-    email: 'john.hancock@gmail.com',
-    password: 'password'
+    email: 'admin@gmail.com',
+    password: 'password',
   }).then(
     user => {
-      bookModel.create({
-        title: 'A cidadela do caos',
+      passwordModel.create({
+        name: 'gmail',
+        password: 'password',
       }).then(
-        book => {
-          user.addBooks(book)
+        password => {
+          user.addPasswords(password)
         }
       )
     }

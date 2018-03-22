@@ -1,10 +1,7 @@
-import { userModel, bookModel } from 'db/models'
+import { userModel, passwordModel } from 'db/models'
 
 // user controller, to treat all the users data
 class UserController {
-  constructor() {
-  }
-
   // creates a new user and adds the user to res.data.user
   // TODO: needs to encrypt the password and save it
   createUser(req, res, next) {
@@ -30,7 +27,7 @@ class UserController {
     userModel.findOne(
       {
         where: {
-          id: req.user.id
+          id: req.user.id,
         },
         attributes: [
           'id',
@@ -39,8 +36,8 @@ class UserController {
           'email',
         ],
         include: [{
-          model: bookModel,
-          attributes: ['id', 'title'],
+          model: passwordModel,
+          attributes: ['name', 'password'],
           through: {
             attributes: [],
           },
@@ -59,7 +56,7 @@ class UserController {
 
   // adds a list of all users to res.data.users
   getAll(req, res, next) {
-    userModel.all({ include: [ bookModel ] }).then(
+    userModel.all().then(
       users => {
         res.data = {
           ...res.data,

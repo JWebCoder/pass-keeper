@@ -5,9 +5,9 @@ import userController from 'controllers/user'
 import { isAuth } from 'middleware/auth'
 import { sendJson } from 'middleware/response'
 
-const router = Router();
+const router = Router()
 
-export default function () {
+export default function() {
   /* Create a new user. */
   router.put('/',
     userController.createUser,
