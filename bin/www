@@ -44,7 +44,7 @@ const server = http.createServer(app.server)
  * Listen on provided port, on all network interfaces.
  */
 
-sequelize.sync({force: process.env.NODE_END === 'development'}).then(
+sequelize.sync({force: process.env.NODE_ENV === 'development'}).then(
   () => {
     server.listen(port)
   }

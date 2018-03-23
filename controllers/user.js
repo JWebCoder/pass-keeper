@@ -37,10 +37,7 @@ class UserController {
         ],
         include: [{
           model: passwordModel,
-          attributes: ['name', 'password'],
-          through: {
-            attributes: [],
-          },
+          attributes: ['name', 'password', 'extraFields'],
         }],
       }
     ).then(

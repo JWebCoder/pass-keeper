@@ -55,9 +55,9 @@ export function auth(target) {
           return next(err)
         }
         if (!user) {
-          const error = new Error('Username or password incorrect')
+          const err = new Error('Username or password incorrect')
           err.status = 403
-          return res.json(error)
+          return next(err)
         }
         login(req, res, next, user)
       }

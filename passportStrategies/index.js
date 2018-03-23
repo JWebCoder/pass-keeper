@@ -64,7 +64,6 @@ export function initStrategies() {
         }
       ).then(
         user => {
-          console.log(user)
           cb(null, user)
         }
       ).catch(

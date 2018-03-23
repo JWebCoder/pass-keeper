@@ -16,6 +16,9 @@ export function initPasswordModel() {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      extraFields: {
+        type: Sequelize.STRING,
+      },
     },
     {
       indexes: [
